@@ -1,0 +1,62 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+
+compileJava {
+    sourceCompatibility '1.8'
+    targetCompatibility '1.8'
+}
+
+sourceSets {
+    main.java.srcDirs 'src'
+}
+
+ext {
+    rd_version = 'rd-132211'
+    rd_type = 'preclassic'
+    rubydung_filename = 'rubydung-launcher.jar'
+    lwjgl_version = 'lwjgl-2.9.3'
+    lwjgl_filename = "${project.ext.lwjgl_version}.zip"
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation fileTree( dir: "libs/${project.ext.lwjgl_version}/jar", includes: ['*.jar'] )
+    implementation fileTree( dir: "libs", includes: ['*.jar'] )
+}
+
+task downloadLwjgl(type: FileDownloader) {
+    sourceUrl = "https://www.dropbox.com/scl/fi/jkko3vw0h35kitxpm7pai/lwjgl-2.9.3.zip?rlkey=477rw7zj62fi7k1q1rnkg7zap&st=oefgpib6&dl=1"
+    target = new File( "libs/${project.ext.lwjgl_filename}" )
+}
+
+task extractLwjgl(type: Copy, dependsOn: [ 'downloadLwjgl' ]) {
+    from zipTree( "libs/${project.ext.lwjgl_filename}" )
+    into 'libs'
+}
+
+task downloadRubyDung(type: FileDownloader) {
+    sourceUrl = "https://vault.omniarchive.uk/archive/java/client-${project.ext.rd_type}/${project.ext.rd_version}-launcher.jar"
+    target = new File( "libs/${project.ext.rubydung_filename}" )
+}
+
+task first_time_run( dependsOn: [ extractLwjgl, downloadRubyDung ] ) {}
+
+jar {
+    archiveFileName = 'rd-api.jar'
+}
+
+class FileDownloader extends DefaultTask {
+    @Input
+    String sourceUrl
+
+    @OutputFile
+    File target
+
+    @TaskAction
+    void download() {
+        ant.get(src: sourceUrl, dest: target)
+    }
+}
