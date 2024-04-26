@@ -11,9 +11,6 @@ sourceSets {
 }
 
 ext {
-    rd_version = 'rd-132211'
-    rd_type = 'preclassic'
-    rubydung_filename = 'rubydung-launcher.jar'
     lwjgl_version = 'lwjgl-2.9.3'
     lwjgl_filename = "${project.ext.lwjgl_version}.zip"
 }
@@ -37,12 +34,7 @@ task extractLwjgl(type: Copy, dependsOn: [ 'downloadLwjgl' ]) {
     into 'libs'
 }
 
-task downloadRubyDung(type: FileDownloader) {
-    sourceUrl = "https://vault.omniarchive.uk/archive/java/client-${project.ext.rd_type}/${project.ext.rd_version}-launcher.jar"
-    target = new File( "libs/${project.ext.rubydung_filename}" )
-}
-
-task first_time_run( dependsOn: [ extractLwjgl, downloadRubyDung ] ) {}
+task first_time_run( dependsOn: [ extractLwjgl ] ) {}
 
 jar {
     archiveFileName = 'rd-api.jar'

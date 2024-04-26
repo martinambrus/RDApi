@@ -1,8 +1,8 @@
 package com.github.martinambrus.rdapi.game;
 
 import com.github.martinambrus.rdapi.keyboard.KeyboardListener;
+import com.github.martinambrus.rdapi.timer.TimerInterface;
 import org.lwjgl.LWJGLException;
-import com.mojang.rubydung.Timer;
 
 import java.io.IOException;
 
@@ -14,5 +14,5 @@ public interface GameInterface {
     boolean render(float a);
     static void main(String[] args) throws LWJGLException {}
     void addKeyboardListener( KeyboardListener kl );
-    Timer getTimerInstance();
+    TimerInterface getTimerInstance();
 }
