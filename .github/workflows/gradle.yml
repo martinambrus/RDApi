@@ -41,7 +41,7 @@ jobs:
     - name: Change wrapper permissions
       run: chmod +x ./gradlew
 
-    - name: Initialize project files and patch decompiled RubyDung sources
+    - name: Initialize project files, download dependencies
       run: ./gradlew first_time_run
 
     - name: Generate JAR file
