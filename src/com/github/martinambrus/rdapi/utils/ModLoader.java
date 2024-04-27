@@ -11,7 +11,7 @@ import java.util.Enumeration;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-public class PluginLoader {
+public class ModLoader {
 
     public void loadJarFile( String path ) throws MalformedURLException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         java.net.URL url = new File( path ).toURI().toURL();
@@ -20,7 +20,7 @@ public class PluginLoader {
         method.invoke(Thread.currentThread().getContextClassLoader(), new Object[]{url});
     }
 
-    public void loadPlugin( String jarFilePath, Game gameInstance ) {
+    public void loadMod(String jarFilePath, Game gameInstance ) {
         try ( JarFile jf = new JarFile( jarFilePath ) ) {
             for (Enumeration<JarEntry> en = jf.entries(); en.hasMoreElements(); ) {
                 JarEntry e = en.nextElement();
@@ -34,7 +34,7 @@ public class PluginLoader {
                     String javaClassName = javaNameSplitted[ javaNameSplitted.length - 1 ];
                     //System.out.print("Checking "+javaName+" (" + javaClassName + ") ... \n");
 
-                    if ( javaClassName.startsWith( "Plugin" ) && !javaClassName.contains( "$" ) ) {
+                    if ( javaClassName.startsWith( "RDMod" ) && !javaClassName.contains( "$" ) ) {
                         // load the actual JAR file
                         try {
                             this.loadJarFile( jarFilePath );
@@ -44,7 +44,7 @@ public class PluginLoader {
                             System.out.print( javaClassName + " loaded\n");
                         } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException |
                                  IllegalAccessException | InstantiationException ex) { // E.g. internal classes, ...
-                            System.out.print("Failed to load plugin from " + jarFilePath + ", class " + javaClassName + " failed to instantiate.\n");
+                            System.out.print("Failed to load mod from " + jarFilePath + ", class " + javaClassName + " failed to instantiate.\n");
                             System.out.print( ex.getMessage() + "\n" );
                             ex.printStackTrace();
                         }

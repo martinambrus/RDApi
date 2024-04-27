@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Game implements GameInterface {
-    private final double apiVersion = 0.1;
+    private final String apiVersion = "0.1.2";
     protected List<KeyboardListener> keyboardListeners = new ArrayList<KeyboardListener>();
 
     public void addKeyboardListener(KeyboardListener kl) {
@@ -26,7 +26,7 @@ public abstract class Game implements GameInterface {
         return true;
     }
 
-    public double getVersion() {
+    public String getVersion() {
         return this.apiVersion;
     }
 }
