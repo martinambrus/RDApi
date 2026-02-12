@@ -1,3 +1,9 @@
+⚠️ Effort moved to Fabric-enabled RubyDung
+------------------------------------------
+Go to **[RDForward](https://github.com/martinambrus/RDForward)** if modding a nearly 20-years old game (in 2026) is your niche :-{}
+
+----------
+
 RubyDung 2009 API
 -----------------
 This is a crazy API from crazy people providing a ***modding API*** for one of the ***first versions of Minecraft*** from the year 2009 (back then still named *RubyDung*).
